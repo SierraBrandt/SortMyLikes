@@ -1,0 +1,11 @@
+<html>
+    <head><title>Liked Songs</title></head>
+    <body>
+        <h1>Your Liked Songs</h1>
+        <ul>
+            {% for song in songs %}
+            <li>{{song.name}} - {{song.artist}}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
