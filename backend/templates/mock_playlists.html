@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mock Playlists</title>
+</head>
+<body>
+  <h1>Mock Playlists (Grouped by Vibe)</h1>
+
+  {% for vibe, songs in groups.items() %}
+    <h2>{{ vibe }} ({{ songs|length }})</h2>
+
+    {% if songs|length == 0 %}
+      <p>No songs in this group.</p>
+    {% else %}
+      <ul>
+        {% for song in songs %}
+          <li>{{ song.name }} — {{ song.artist }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <hr>
+  {% endfor %}
+
+  <a href="/">Back</a>
+</body>
+</html>

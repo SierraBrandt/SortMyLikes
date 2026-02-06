@@ -9,8 +9,22 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 import os
 import json
+from fastapi.responses import HTMLResponse
+from playlist_ai import group_songs_by_vibe
+
+from spotify_utils import get_spotify_client, get_liked_tracks
+from playlist_ai import group_songs_by_genre
+
 
 app = FastAPI()
+
+@app.get("/test-feature")
+def test_feature():
+    sp = get_spotify_client()
+    tracks = get_liked_tracks()
+    first_id = tracks[0]["id"]
+    return sp.audio_features([first_id])[0]
+
 
 templates = Jinja2Templates(directory="templates")
 
@@ -46,3 +60,10 @@ def logout():
     if os.path.exists("token_info.json"):
         os.remove("token_info.json")
     return RedirectResponse(url="/")
+
+
+@app.get("/mock-playlists", response_class=HTMLResponse)
+def mock_playlists(request: Request):
+    tracks = get_liked_tracks()
+    groups = group_songs_by_genre(tracks)
+    return templates.TemplateResponse("mock_playlists.html", {"request": request, "groups": groups})

@@ -1,0 +1,23 @@
+# secrets
+.env
+*.env
+.env.*
+token_info.json
+
+.cache
+.cache/
+__pycache__/
+
+
+*.pyc
+.env
+token_info.json
+
+
+# venv
+.venv/
+venv/
+
+# editor
+.vscode/
+.idea/
